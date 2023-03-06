@@ -13,10 +13,12 @@ import base64
 from builder import build
 from util import DEFAULTS
 
+
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
+
 
 @app.route('/solve', methods=['POST'])
 def solve():
@@ -47,7 +49,4 @@ def solve():
         # return f"data:image/png;base64,{plot_url}"
 
     except Exception as e:
-        return Response(
-            str(e),
-            status=400
-        )
+        return Response(str(e), status=400)

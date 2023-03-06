@@ -12,8 +12,8 @@ import pdb
 from util import FuncInfo
 
 
-
 class Primitive(ABC):
+
     def __init__(self, val):
         self.val = val
         super().__init__()
@@ -29,13 +29,13 @@ class Primitive(ABC):
     def __hash__(self):
         return hash(self.val)
 
-
     @abstractmethod
     def __str__(self):
         pass
 
 
 class Point(Primitive):
+
     def __str__(self):
         if isinstance(self.val, str):
             return self.val
@@ -43,8 +43,8 @@ class Point(Primitive):
             return f"({self.val[0]} {' '.join([str(v) for v in self.val[1]])})"
 
 
-
 class Num(Primitive):
+
     def __str__(self):
         if isinstance(self.val, numbers.Number):
             return str(self.val)
@@ -75,6 +75,7 @@ class Circle(Primitive):
             return f"({pred} {' '.join([str(a) for a in args])})"
         else:
             raise RuntimeError("Invalid circle")
+
 
 class Line(Primitive):
 

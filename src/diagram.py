@@ -11,13 +11,24 @@ import pdb
 import numpy as np
 import math
 
-
 UNNAMED_ALPHA = 0.1
 MIN_AXIS_VAL = -10
 MAX_AXIS_VAL = 10
 
-class Diagram(collections.namedtuple("Diagram", ["named_points", "named_lines", "named_circles", "segments", "seg_colors", "unnamed_points", "unnamed_lines", "unnamed_circles", "ndgs", "goals"])):
-    def plot(self, show=True, save=False, fname=None, return_fig=False, show_unnamed=True):
+
+class Diagram(
+        collections.namedtuple("Diagram", [
+            "named_points", "named_lines", "named_circles", "segments",
+            "seg_colors", "unnamed_points", "unnamed_lines", "unnamed_circles",
+            "ndgs", "goals"
+        ])):
+
+    def plot(self,
+             show=True,
+             save=False,
+             fname=None,
+             return_fig=False,
+             show_unnamed=True):
 
         unnamed_points = self.unnamed_points
         unnamed_lines = self.unnamed_lines
@@ -46,8 +57,7 @@ class Diagram(collections.namedtuple("Diagram", ["named_points", "named_lines", 
 
         # Plot segments (never named)
         for (p1, p2), c in zip(self.segments, self.seg_colors):
-            plt.plot([p1.x, p2.x],[p1.y, p2.y], c=c)
-
+            plt.plot([p1.x, p2.x], [p1.y, p2.y], c=c)
 
         # Plot named circles
         for (c_name, (O, r)) in self.named_circles.items():
@@ -55,8 +65,7 @@ class Diagram(collections.namedtuple("Diagram", ["named_points", "named_lines", 
                                 radius=r,
                                 fill=False,
                                 label=c_name,
-                                color=np.random.rand(3)
-            )
+                                color=np.random.rand(3))
             ax.add_patch(circle)
 
         plt.axis('scaled')
@@ -93,8 +102,7 @@ class Diagram(collections.namedtuple("Diagram", ["named_points", "named_lines", 
                                 radius=r,
                                 fill=False,
                                 color="black",
-                                alpha=UNNAMED_ALPHA
-            )
+                                alpha=UNNAMED_ALPHA)
             ax.add_patch(circle)
 
         ax.set_xlim([lo_x_lim, hi_x_lim])
@@ -108,7 +116,8 @@ class Diagram(collections.namedtuple("Diagram", ["named_points", "named_lines", 
                 l_angle = math.atan(ny / nx) % math.pi
             if l_angle == 0:
                 if name is not None:
-                    plt.axvline(x=r, label=name) # FIXME: Check if this labrel works
+                    plt.axvline(
+                        x=r, label=name)  # FIXME: Check if this labrel works
                 else:
                     plt.axvline(x=r, c="black", alpha=UNNAMED_ALPHA)
             else:

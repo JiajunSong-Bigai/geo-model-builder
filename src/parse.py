@@ -7,31 +7,33 @@ Authors: Ryan Krueger, Jesse Michael Han, Daniel Selsam
 from typing import List
 import pdb
 
+
 def parse_sexprs(lines):
-    def parse_sexpr(s :str):
+
+    def parse_sexpr(s: str):
         return read_from_tokens(tokenize(s))
 
-    def tokenize(s :str):
-        result = s.replace('(',' ( ').replace(')',' ) ').split()
+    def tokenize(s: str):
+        result = s.replace('(', ' ( ').replace(')', ' ) ').split()
 
         # discard comments
         for i, tk in enumerate(result):
-          # if tk == ";;":
-          if tk[0] == ";":
-            return result[:i]
+            # if tk == ";;":
+            if tk[0] == ";":
+                return result[:i]
 
         return result
 
-    def read_from_tokens(tokens :List[str]):
+    def read_from_tokens(tokens: List[str]):
         "Read an expression from a sequence of tokens."
         if len(tokens) == 0:
-          return
+            return
         token = tokens.pop(0)
         if '(' == token:
             L = []
             while tokens[0] != ')':
                 L.append(read_from_tokens(tokens))
-            tokens.pop(0) # pop off ')'
+            tokens.pop(0)  # pop off ')'
             return tuple(L)
         elif ')' == token:
             raise SyntaxError('unexpected )')
@@ -47,7 +49,6 @@ def parse_sexprs(lines):
         return result
     except:
         raise RuntimeError("Could not parse s-expressions")
-
     '''
     with open(filename, 'r') as f:
       result = []
@@ -58,10 +59,11 @@ def parse_sexprs(lines):
       return result
     '''
 
+
 if __name__ == "__main__":
-  import argparse
-  parser = argparse.ArgumentParser()
-  parser.add_argument("arg")
-  opts = parser.parse_args()
-  result = parse_sexprs(opts.arg)
-  print(result)
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("arg")
+    opts = parser.parse_args()
+    result = parse_sexprs(opts.arg)
+    print(result)

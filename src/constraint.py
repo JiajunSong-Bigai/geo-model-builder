@@ -6,14 +6,17 @@ Authors: Ryan Krueger, Jesse Michael Han, Daniel Selsam
 
 import pdb
 
+
 class Constraint:
+
     def __init__(self, pred, args, negate):
         self.pred = pred
         self.args = args
         self.negate = negate
 
     def ndgs(self):
-        if (self.pred == "ibisector" or self.pred == "ebisector") and not self.negate:
+        if (self.pred == "ibisector"
+                or self.pred == "ebisector") and not self.negate:
             return [Constraint("coll", self.args[1:], False)]
         else:
             return list()
@@ -40,6 +43,7 @@ def constraint_ndgs(c):
         return [Constraint("coll", c.args, False)]
     else:
         return list()
+
 
 def constraint_orders(c):
     if c.pred == "ibisector":

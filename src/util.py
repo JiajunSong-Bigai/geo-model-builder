@@ -11,6 +11,7 @@ import string
 
 
 class Root(collections.namedtuple("Root", ["pred", "vars"])):
+
     def __str__(self):
         if self.pred == "arbitrary":
             return "root-arbitrary"
@@ -22,12 +23,15 @@ Bucket = collections.namedtuple("Bucket", ["points", "assertions"])
 
 FuncInfo = collections.namedtuple("FuncInfo", ["head", "args"])
 
+
 def is_sample_pred(pred):
     return pred in ["triangle", "polygon"]
 
+
 def group_pairs(p, ps):
     if len(ps) != 4:
-        raise RuntimeError("[group_pairs] Wrong number of points passed to group_pairs")
+        raise RuntimeError(
+            "[group_pairs] Wrong number of points passed to group_pairs")
     a, b, c, d = ps
     if p == a and p not in [b, c, d]:
         return (b, (c, d))
@@ -39,9 +43,12 @@ def group_pairs(p, ps):
         return (c, (a, b))
     return (None, None)
 
+
 def match_in_first_2(p, ps):
     if len(ps) != 4:
-        raise RuntimeError("[match_in_first_2] Wrong number of points passed to match_in_first_2")
+        raise RuntimeError(
+            "[match_in_first_2] Wrong number of points passed to match_in_first_2"
+        )
     x, y, a, b = ps
     if p == x and p not in [y, a, b]:
         return True, (y, a, b)
@@ -49,10 +56,11 @@ def match_in_first_2(p, ps):
         return True, (x, a, b)
     return (False, None)
 
+
 DEFAULTS = {
     "decay_steps": 1e3,
     "decay_rate": 0.7,
-    "distinct_prob": 1.0, # Note this
+    "distinct_prob": 1.0,  # Note this
     "eps": 1e-3,
     "enforce_goals": False,
     "experiment": False,
@@ -72,13 +80,13 @@ DEFAULTS = {
     "verbosity": 0
 }
 
+
 def is_number(s):
     try:
         float(s)
         return True
     except ValueError:
         return False
-
 
 
 def get_random_string(length):
