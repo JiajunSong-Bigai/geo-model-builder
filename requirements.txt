@@ -1,5 +1,4 @@
-numpy==1.18.3
-Flask==1.1.1
-tqdm==4.46.0
-matplotlib==3.2.1
-tensorflow>=2.4.0
+flask==2.2.3
+pip-chill==1.0.1
+tensorflow==2.11.0
+tqdm==4.65.0
